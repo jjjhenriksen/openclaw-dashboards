@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="A privacy-bounded public edition of the Life Radar dashboard pattern." />
+    <title>Life Radar · Human Overview</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --ink: #f3efe6;
+        --muted: #a8a29a;
+        --faint: #6e6b68;
+        --bg: #111214;
+        --surface: #181a1d;
+        --elevated: #202328;
+        --line: #34373c;
+        --accent: #ef765f;
+        --gold: #e3c383;
+        --green: #8bc7a1;
+        --blue: #8fb9dc;
+        --radius: 18px;
+        --sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-width: 320px;
+        background: radial-gradient(circle at 90% 0%, #2c2020 0, transparent 32rem), var(--bg);
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.5;
+      }
+      main { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 32px 0 56px; }
+      .eyebrow, .label { color: var(--gold); font: 700 0.7rem/1.2 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; }
+      .eyebrow { margin: 0 0 12px; }
+      h1, h2, h3, p { margin-top: 0; }
+      h1 { max-width: 720px; margin-bottom: 10px; font-size: clamp(2.3rem, 5vw, 4.7rem); letter-spacing: -0.06em; line-height: 0.98; }
+      h2 { margin-bottom: 8px; font-size: 1.2rem; letter-spacing: -0.02em; }
+      h3 { margin-bottom: 6px; font-size: 1rem; }
+      .lede { max-width: 650px; margin-bottom: 28px; color: var(--muted); font-size: 1.04rem; }
+      .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 32px; }
+      .pill { border: 1px solid var(--line); border-radius: 999px; color: var(--muted); padding: 6px 10px; font: 0.73rem var(--mono); }
+      .grid { display: grid; gap: 14px; }
+      .overview { grid-template-columns: 1.2fr 0.8fr; margin-bottom: 14px; }
+      .lower { grid-template-columns: 0.9fr 1.1fr; }
+      .card { border: 1px solid var(--line); border-radius: var(--radius); background: color-mix(in srgb, var(--surface) 92%, transparent); padding: 22px; box-shadow: 0 16px 45px #00000022; }
+      .card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+      .card-head p { margin: 3px 0 0; color: var(--muted); font-size: 0.82rem; }
+      .status { color: var(--green); font: 0.72rem var(--mono); white-space: nowrap; }
+      .signal { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; min-height: 190px; }
+      .signal strong { display: block; max-width: 530px; font-size: clamp(1.5rem, 3vw, 2.5rem); letter-spacing: -0.04em; line-height: 1.05; }
+      .signal small { display: block; margin-top: 12px; color: var(--muted); }
+      .orb { width: 92px; height: 92px; border: 1px solid #ef765f88; border-radius: 50%; background: radial-gradient(circle, #ef765f 0 9%, #ef765f44 10% 23%, transparent 24% 100%); box-shadow: 0 0 0 14px #ef765f0d, 0 0 60px #ef765f44; }
+      .list { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+      .item { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; border-top: 1px solid #ffffff0d; padding-top: 10px; }
+      .item:first-child { border-top: 0; padding-top: 0; }
+      .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+      .dot.gold { background: var(--gold); }
+      .dot.blue { background: var(--blue); }
+      .item span { color: var(--muted); font-size: 0.88rem; }
+      .item time { color: var(--faint); font: 0.7rem var(--mono); }
+      .empty { border: 1px dashed var(--line); border-radius: 12px; color: var(--faint); padding: 18px; font-size: 0.88rem; }
+      footer { margin-top: 18px; color: var(--faint); font: 0.7rem var(--mono); }
+      @media (max-width: 780px) {
+        main { width: min(100% - 24px, 600px); padding-top: 22px; }
+        .overview, .lower { grid-template-columns: 1fr; }
+        .signal { min-height: auto; }
+        .orb { width: 68px; height: 68px; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="eyebrow">Life Radar / public edition</p>
+      <h1>Keep the important things visible.</h1>
+      <p class="lede">A signal-first dashboard pattern for turning scattered commitments into a readable human overview. The live board binds to private sources; this public edition shows the structure without the private state.</p>
+      <div class="meta" aria-label="Dashboard properties">
+        <span class="pill">privacy-bounded</span>
+        <span class="pill">human overview</span>
+        <span class="pill">source-aware</span>
+      </div>
+
+      <section class="grid overview" aria-label="Overview">
+        <article class="card">
+          <div class="card-head"><div><h2>Human overview</h2><p>Current orientation, not an exhaustive task dump.</p></div><span class="status">STABLE</span></div>
+          <div class="signal"><div><strong>One clear next move is better than twelve noisy alerts.</strong><small>Example state · public values are intentionally representative.</small></div><div class="orb" aria-hidden="true"></div></div>
+        </article>
+        <article class="card">
+          <div class="card-head"><div><h2>Now / next</h2><p>Priority lanes with room to breathe.</p></div></div>
+          <ul class="list">
+            <li class="item"><span class="dot"></span><span>Protect the current focus block</span><time>NOW</time></li>
+            <li class="item"><span class="dot gold"></span><span>Prepare the next evidence packet</span><time>NEXT</time></li>
+            <li class="item"><span class="dot blue"></span><span>Leave recovery margin visible</span><time>LATER</time></li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="grid lower" aria-label="Planning details">
+        <article class="card">
+          <div class="card-head"><div><h2>Coursework</h2><p>One bounded lane for upcoming study commitments.</p></div></div>
+          <div class="empty">Public example only. Live assignment titles and due dates stay in the private Life Radar board.</div>
+        </article>
+        <article class="card">
+          <div class="card-head"><div><h2>Today’s calendar</h2><p>Visibility into shape and collisions, without overclaiming.</p></div></div>
+          <ul class="list">
+            <li class="item"><span class="dot gold"></span><span>Protected work block</span><time>09:00</time></li>
+            <li class="item"><span class="dot blue"></span><span>Committed appointment</span><time>13:30</time></li>
+            <li class="item"><span class="dot"></span><span>Review and reset</span><time>16:00</time></li>
+          </ul>
+        </article>
+      </section>
+      <footer>Public showcase · representative values only · no live personal data</footer>
+    </main>
+  </body>
+</html>

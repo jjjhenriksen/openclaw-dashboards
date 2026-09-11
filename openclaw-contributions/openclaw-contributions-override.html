@@ -1,0 +1,193 @@
+<script>
+(function () {
+  "use strict";
+
+  // This slice is intentionally narrower than the broader public-activity feed.
+  // It covers OpenClaw-backed repositories and known OpenClaw forks/plugins only.
+  var OPENCLAW_REPOS = [
+    "openclaw/openclaw",
+    "openclaw/clickclack",
+    "openclaw/rfcs",
+    "jjjhenriksen/openclaw",
+    "jjjhenriksen/clickclack",
+    "jjjhenriksen/openclaw-pet",
+    "jjjhenriksen/lossless-claw",
+    "jjjhenriksen/noderooms-openclaw-plugin",
+    "jarbas-marco/openclaw"
+  ];
+
+  var root = document;
+  var byId = function (id) { return root.getElementById(id); };
+  var esc = function (value) {
+    return String(value == null ? "" : value).replace(/[&<>"']/g, function (c) {
+      return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+    });
+  };
+  var repoKey = function (value) {
+    return String(value || "")
+      .replace(/^https?:\/\/api\.github\.com\/repos\//, "")
+      .replace(/^https?:\/\/github\.com\//, "")
+      .replace(/\/$/, "");
+  };
+  var isOpenClawRepo = function (value) {
+    return OPENCLAW_REPOS.indexOf(repoKey(value)) >= 0;
+  };
+  var dateLabel = function (value) {
+    try {
+      return new Intl.DateTimeFormat(undefined, { month: "short", day: "numeric", year: "numeric" })
+        .format(new Date(value));
+    } catch (error) { return "date unavailable"; }
+  };
+  var api = function (url) {
+    return fetch(url + (url.indexOf("?") >= 0 ? "&" : "?") + "oc_open_prs=" + Date.now(), {
+      cache: "no-store",
+      headers: { Accept: "application/vnd.github+json" }
+    }).then(function (response) {
+      return response.json().then(function (body) {
+        if (!response.ok) throw new Error("GitHub " + response.status + (body && body.message ? ": " + body.message : ""));
+        return { body: body, remaining: response.headers.get("x-ratelimit-remaining") };
+      });
+    });
+  };
+  var setText = function (selector, text) {
+    var node = root.querySelector(selector);
+    if (node) node.textContent = text;
+  };
+  var updateStaticCopy = function () {
+    setText(".lede", "Open pull requests and active OpenClaw threads — each with an explicit source boundary.");
+    setText("#ledger-title", "Active OpenClaw threads");
+    var ledgerSub = root.querySelector("#ledger-title + .subtle");
+    if (ledgerSub) ledgerSub.textContent = "Live, unarchived threads currently marked Active";
+    var prHeading = root.querySelector("#prs");
+    var prPanel = prHeading && prHeading.closest(".panel");
+    if (prPanel) {
+      var heading = prPanel.querySelector("h2");
+      if (heading) heading.textContent = "Open pull requests";
+      var subs = prPanel.querySelectorAll(".subtle");
+      if (subs[0]) subs[0].textContent = "Authored by jjjhenriksen · OpenClaw-backed repos and OC forks only";
+      if (subs[1]) subs[1].textContent = "Currently open";
+      if (subs[2]) subs[2].textContent = "Repositories with open work";
+      prPanel.querySelectorAll(".subtle").forEach(function (node) {
+        if (/repositories with merged work/i.test(node.textContent)) node.textContent = "Repositories with open work";
+      });
+    }
+    var mergedMetric = root.querySelector("#m-prs");
+    if (mergedMetric) {
+      var metric = mergedMetric.closest(".metric");
+      if (metric) {
+        var label = metric.querySelector(".metric-label");
+        var note = metric.querySelector(".metric-note");
+        if (label) label.textContent = "Open PRs";
+        if (note) note.textContent = "live author search";
+      }
+    }
+    var repoMetric = root.querySelector("#m-prrepos");
+    if (repoMetric) {
+      var repoCard = repoMetric.closest(".metric");
+      if (repoCard) {
+        var repoLabel = repoCard.querySelector(".metric-label");
+        var repoNote = repoCard.querySelector(".metric-note");
+        if (repoLabel) repoLabel.textContent = "PR repos";
+        if (repoNote) repoNote.textContent = "with open work";
+      }
+    }
+    var scope = root.querySelector(".scope ul");
+    if (scope) {
+      var items = scope.querySelectorAll("li");
+      if (items[1]) items[1].innerHTML = "Open PRs use the explicit OpenClaw-backed repository and OC-fork set: <code>" + esc(OPENCLAW_REPOS.join(", ")) + "</code>.";
+      if (items[2]) items[2].innerHTML = "Open PRs use <code>is:pr is:open author:jjjhenriksen</code>; the active-thread ledger is a separate live session source.";
+    }
+  };
+  var scopedCount = null;
+  var searching = false;
+  var repairSignals = function () {
+    var signals = byId("signals");
+    if (!signals || scopedCount === null) return;
+    var entries = signals.querySelectorAll(".event");
+    entries.forEach(function (entry) {
+      var strong = entry.querySelector("strong");
+      var small = entry.querySelector("small");
+      if (strong && /merged PR/i.test(strong.textContent)) {
+        strong.textContent = scopedCount + " open PR" + (scopedCount === 1 ? "" : "s") + " in scope";
+        if (small) small.textContent = "Current author search across OpenClaw-backed repos and OC forks.";
+      }
+    });
+  };
+  var renderPRs = function (items, remaining) {
+    var scoped = items.filter(function (item) {
+      return isOpenClawRepo(item.repository_url || "");
+    }).map(function (item) {
+      return {
+        number: item.number,
+        title: item.title,
+        html_url: item.html_url,
+        repo: repoKey(item.repository_url || ""),
+        updated_at: item.updated_at,
+        draft: Boolean(item.draft)
+      };
+    }).sort(function (a, b) {
+      return new Date(b.updated_at) - new Date(a.updated_at);
+    });
+    scopedCount = scoped.length;
+    setText("#m-prs", scoped.length);
+    var repoCounts = {};
+    scoped.forEach(function (item) { repoCounts[item.repo] = (repoCounts[item.repo] || 0) + 1; });
+    setText("#m-prrepos", Object.keys(repoCounts).length);
+    var note = root.querySelector("#pr-note");
+    if (note) note.textContent = scoped.length + " open PRs · " + Object.keys(repoCounts).length + " repos" + (remaining ? " · API " + remaining + " left" : "");
+    var list = byId("prs");
+    if (list) list.innerHTML = scoped.length ? scoped.map(function (item) {
+      return '<div class="pr"><span class="dot" aria-hidden="true"></span><div><strong><a href="' + esc(item.html_url) + '" target="_blank" rel="noopener noreferrer">' + esc(item.title) + '</a></strong><small>' + esc(item.repo) + ' · updated ' + esc(dateLabel(item.updated_at)) + '</small></div><time>' + esc("#" + item.number) + (item.draft ? " · DRAFT" : "") + '</time></div>';
+    }).join("") : '<div class="empty">No open PRs matched the scoped OpenClaw repository set.</div>';
+    var repos = byId("repos");
+    if (repos) repos.innerHTML = Object.keys(repoCounts).length ? Object.keys(repoCounts).sort(function (a, b) { return repoCounts[b] - repoCounts[a]; }).map(function (repo) {
+      return '<div class="repo"><a href="https://github.com/' + esc(repo) + '" target="_blank" rel="noopener noreferrer">' + esc(repo) + '</a><span>' + repoCounts[repo] + ' open PR' + (repoCounts[repo] === 1 ? "" : "s") + '</span></div>';
+    }).join("") : '<div class="empty">No scoped repositories with open PRs.</div>';
+    var quality = byId("q-github");
+    if (quality) quality.innerHTML = "<strong>GitHub: fresh</strong><span>" + scoped.length + " open PRs · live author search</span>";
+    setText("#status", "Updated " + new Date().toLocaleString() + " · " + scoped.length + " scoped open PRs · active OC threads shown below");
+    repairSignals();
+  };
+  var setActiveLedger = function () {
+    var status = byId("status-filter");
+    if (status) {
+      status.value = "active";
+      status.dispatchEvent(new Event("change"));
+    }
+    setText("#status", "Open PRs and active OpenClaw threads are scoped and current.");
+  };
+  var search = function () {
+    if (searching) return;
+    searching = true;
+    updateStaticCopy();
+    setActiveLedger();
+    api("https://api.github.com/search/issues?q=" + encodeURIComponent("is:pr is:open author:jjjhenriksen") + "&per_page=100")
+      .then(function (result) {
+        renderPRs(Array.isArray(result.body && result.body.items) ? result.body.items : [], result.remaining);
+        searching = false;
+      })
+      .catch(function (error) {
+        setText("#m-prs", "—");
+        setText("#m-prrepos", "—");
+        var note = byId("pr-note");
+        if (note) note.textContent = "Open-PR search unavailable";
+        var list = byId("prs");
+        if (list) list.innerHTML = '<div class="empty warn">Open-PR search failed; total withheld rather than shown as zero.</div>';
+        var repos = byId("repos");
+        if (repos) repos.innerHTML = '<div class="empty warn">Repository breakdown unavailable until GitHub search recovers.</div>';
+        setText("#status", "Open-PR search unavailable: " + (error && error.message ? error.message : "unknown error"));
+        searching = false;
+      });
+  };
+  updateStaticCopy();
+  setActiveLedger();
+  // The preserved ledger script also refreshes on mount. Re-assert this slice
+  // after that refresh so merged-history data cannot overwrite the open-PR view.
+  var observer = new MutationObserver(function () {
+    repairSignals();
+    if (!searching && scopedCount !== null && byId("pr-note") && /merged/i.test(byId("pr-note").textContent)) search();
+  });
+  observer.observe(root.body, { childList: true, subtree: true, characterData: true });
+  search();
+}());
+</script>
