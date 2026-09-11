@@ -15,9 +15,6 @@ This repository is the collection point for dashboards that are useful to share 
 
 This collection contains public artifacts only. Live OpenClaw dashboards may bind to private Calendar, Canvas, Workboard, or other connected sources; those live values are not published here.
 
-## Standalone history
+## Canonical home
 
-The original standalone repositories remain available while this collection becomes the canonical index:
-
-- [`openclaw-contributions-dashboard`](https://github.com/jjjhenriksen/openclaw-contributions-dashboard)
-- [`life-radar-dashboard`](https://github.com/jjjhenriksen/life-radar-dashboard)
+This is the single public repository for Jacqueline's OpenClaw dashboards. New dashboards should be added as directories here rather than published as separate dashboard repositories.
