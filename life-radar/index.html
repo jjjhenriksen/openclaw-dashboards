@@ -1,133 +1,22 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<style>
-:root {
-  color-scheme: dark;
-  --ink: #f4eee7;
-  --muted: #9f9690;
-  --line: rgba(255,255,255,.13);
-  --red: #ee3d2f;
-  --gold: #f3b33d;
-  --black: #090a0c;
-}
-* { box-sizing: border-box; }
-html, body { margin:0; min-height:100%; background:var(--black); }
-body {
-  overflow:hidden;
-  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace);
-  color:var(--ink);
-}
-.hero {
-  position:relative;
-  min-height:100%;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  padding:26px 30px;
-  border:1px solid var(--line);
-  border-radius:16px;
-  background:
-    radial-gradient(circle at 88% 18%, rgba(238,61,47,.22), transparent 25%),
-    radial-gradient(circle at 75% 88%, rgba(243,179,61,.11), transparent 23%),
-    linear-gradient(135deg, #0b0c0f 0%, #111214 58%, #160d0d 100%);
-}
-.hero::after {
-  content:"";
-  position:absolute;
-  inset:12px;
-  border:1px solid rgba(238,61,47,.18);
-  border-radius:11px;
-  pointer-events:none;
-}
-.copy { position:relative; z-index:2; max-width:65%; }
-.kicker {
-  margin:0 0 11px;
-  color:var(--gold);
-  font-size:12px;
-  letter-spacing:.18em;
-  font-weight:700;
-}
-h1 {
-  margin:0;
-  color:#fff8f1;
-  font-size:clamp(28px, 5vw, 48px);
-  line-height:1;
-  letter-spacing:-.06em;
-  font-weight:800;
-}
-.rule {
-  width:92px;
-  height:3px;
-  margin:18px 0 15px;
-  background:linear-gradient(90deg,var(--red),var(--gold));
-  border-radius:999px;
-}
-.sub {
-  margin:0;
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-  letter-spacing:.04em;
-}
-.badge {
-  display:inline-flex;
-  gap:8px;
-  align-items:center;
-  margin-top:18px;
-  padding:7px 10px;
-  border:1px solid rgba(238,61,47,.4);
-  border-radius:999px;
-  color:#ffd1c7;
-  background:rgba(238,61,47,.08);
-  font-size:11px;
-  letter-spacing:.08em;
-}
-.dot {
-  width:7px; height:7px; border-radius:50%;
-  background:var(--red);
-  box-shadow:0 0 14px rgba(238,61,47,.8);
-}
-.mascot {
-  position:absolute;
-  z-index:1;
-  right:3%;
-  bottom:-4%;
-  width:min(31%, 230px);
-  height:auto;
-  object-fit:contain;
-  filter:drop-shadow(0 14px 18px rgba(0,0,0,.55)) drop-shadow(0 0 18px rgba(238,61,47,.22));
-  user-select:none;
-  pointer-events:none;
-}
-.corner {
-  position:absolute;
-  right:25px;
-  top:22px;
-  color:rgba(255,255,255,.35);
-  font-size:10px;
-  letter-spacing:.12em;
-}
-@media (max-width:520px) {
-  .hero { padding:22px; }
-  .copy { max-width:72%; }
-  .mascot { right:-5%; width:36%; opacity:.9; }
-  .corner { right:18px; top:17px; }
-}
-</style><style>.mascot-placeholder{display:grid;place-items:center;width:92px;height:92px;border-radius:50%;border:2px solid var(--gold);color:var(--gold);font:700 12px var(--font-mono,ui-monospace,monospace);letter-spacing:.12em}</style>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Static export of the OpenClaw Life Radar dashboard, based on the September 9, 2026 ClawCast state.">
+  <title>Life Radar · OpenClaw static export</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0d0708;--surface:#160b0d;--card:#211012;--elevated:#2b1518;--text:#fff1ed;--muted:#c9aaa5;--faint:#a27b78;--line:#4a2528;--line-strong:#713239;--accent:#ff5a4f;--accent-soft:#ff9687;--ok:#9ed1b0;--warn:#ffc27d;--radius:12px;--sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,monospace}
+    *{box-sizing:border-box}html,body{margin:0;min-width:320px;background:var(--bg);color:var(--text)}body{font:14px/1.45 var(--sans)}main{width:min(1180px,calc(100% - 32px));margin:auto;padding:24px 0 42px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}.brand{display:flex;align-items:center;gap:12px}.lobster{width:74px;height:74px;flex:none;object-fit:contain;filter:drop-shadow(0 0 16px rgba(255,90,79,.22))}.eyebrow,.kicker{color:var(--accent-soft);font:700 11px/1.2 var(--mono);letter-spacing:.13em;text-transform:uppercase}.eyebrow{margin:0 0 5px}.snapshot{border:1px solid var(--line-strong);border-radius:999px;padding:6px 10px;color:var(--accent-soft);font:11px var(--mono);white-space:nowrap}.hero,.card{background:linear-gradient(180deg,var(--card),#180d0f);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 8px 24px #0005}.hero{padding:24px;margin-bottom:14px}.hero h1{margin:0;color:var(--text);font-size:clamp(28px,5vw,48px);line-height:1.02;letter-spacing:-.04em}.hero p{margin:8px 0 0;color:var(--muted);max-width:700px}.accent-rule{width:48px;height:3px;background:var(--accent);border-radius:99px;margin-top:14px}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:20px}.metric{min-width:0;background:var(--elevated);border:1px solid var(--line);border-radius:10px;padding:12px}.metric strong{display:block;color:var(--text);font-size:20px;font-variant-numeric:tabular-nums}.metric span{display:block;color:var(--muted);font-size:12px;margin-top:3px}.dashboard-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{padding:18px;min-width:0}.card h2{margin:0;color:var(--text);font-size:16px}.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:14px}.card-head p{margin:4px 0 0;color:var(--muted);font-size:12px}.badge{display:inline-flex;border:1px solid var(--line-strong);border-radius:999px;padding:4px 9px;color:var(--accent-soft);font:700 11px var(--mono);white-space:nowrap}.badge.ok{color:var(--ok);border-color:#315f45}.badge.warn{color:var(--warn);border-color:#76582f}.row{display:grid;grid-template-columns:minmax(132px,max-content) minmax(0,1fr);gap:12px;padding:9px 0;border-top:1px solid #4a2528b8;align-items:start}.row:first-of-type{border-top:0}.time{color:var(--accent-soft);font:11px var(--mono);white-space:nowrap}.name{color:var(--text);font-weight:650}.detail{color:var(--muted);font-size:12px;margin-top:2px}.optional{opacity:.6}.optional .time{color:var(--faint)}.list{display:grid;gap:9px;margin:0;padding:0;list-style:none}.list li{border-top:1px solid #4a2528b8;padding-top:9px;color:var(--muted)}.list li:first-child{border-top:0;padding-top:0}.list strong{color:var(--text)}.tag{float:right;color:var(--accent-soft);font:10px var(--mono);letter-spacing:.08em}.callout{border:1px solid var(--line-strong);border-radius:9px;background:#ff5a4f12;padding:12px;margin-top:12px;color:var(--muted)}.callout strong{color:var(--text)}footer{margin-top:14px;color:var(--faint);font:11px var(--mono)}
+    @media(max-width:760px){main{width:min(100% - 20px,600px);padding-top:16px}.topbar{align-items:flex-start}.snapshot{font-size:10px}.metrics,.dashboard-grid{grid-template-columns:1fr}.hero{padding:18px}.row{grid-template-columns:minmax(112px,max-content) minmax(0,1fr);gap:9px}}
+  </style>
 </head>
-<body>
-  <section class="hero" aria-label="Life Radar">
-    <div class="copy">
-      <p class="kicker">OPENCLAW // LIFE SYSTEM</p>
-      <h1>Life Radar</h1>
-      <div class="rule"></div>
-      <p class="sub">A clear field for deadlines, capacity, and what matters next.</p>
-      <div class="badge"><span class="dot" aria-hidden="true"></span> STATIC SNAPSHOT // 09 SEP 2026</div>
-    </div>
-    <div class="corner">RENDERED CANVAS SURFACE</div>
-    <div class="mascot-placeholder" role="img" aria-label="Red and gold lobster mascot">OPENCLAW</div>
-  </section>
-<p style="margin:14px 0 0;color:var(--muted);font:11px var(--font-mono,ui-monospace,monospace);">Static public export · rendered from the Sep 9, 2026 Life Radar canvas artifact · no live connections.</p></body></html>
+<body><main>
+  <div class="topbar"><div class="brand"><img class="lobster" src="../assets/life-radar-lobster.png" alt="Red and gold lobster mascot with one claw raised"><div><p class="eyebrow">OpenClaw / personal signal board</p><strong>Life Radar</strong></div></div><span class="snapshot">STATIC EXPORT · 09 SEP 2026</span></div>
+  <section class="hero" aria-labelledby="life-radar-title"><p class="kicker">OPENCLAW // LIFE RADAR</p><h1 id="life-radar-title">A clear field for deadlines, capacity, and what matters next.</h1><div class="accent-rule" aria-hidden="true"></div><p>Faithful static export of the Life Radar surface shown in the September 9 ClawCast. The source dashboard is private and live; this public artifact preserves its OpenClaw shell, four-widget composition, and source-aware states without publishing personal connections.</p><div class="metrics" aria-label="Current signals"><div class="metric"><strong>14 cards</strong><span>Workboard · 6 todo · 3 ready · 1 blocked</span></div><div class="metric"><strong>0 due today</strong><span>Canvas Calendar · 11 in next 14 days</span></div><div class="metric"><strong>0 collisions</strong><span>Office Hours shown, excluded from conflict logic</span></div></div></section>
+  <div class="dashboard-grid">
+    <section class="card" aria-labelledby="now-next"><div class="card-head"><div><h2 id="now-next">Human overview</h2><p>Signal first · a bounded read, not a task dump.</p></div><span class="badge ok">ONLINE</span></div><ul class="list"><li><strong>Now</strong> — protect the next committed block. <span class="tag">DO NOW</span></li><li><strong>Next</strong> — advance one bounded project lane. <span class="tag">NEXT</span></li><li><strong>Capacity</strong> — leave recovery margin visible. <span class="tag">GUARD</span></li></ul><div class="callout"><strong>What deserves attention:</strong> one clear next move is more useful than twelve simultaneous alerts.</div></section>
+    <section class="card" aria-labelledby="assignments"><div class="card-head"><div><h2 id="assignments">Canvas assignments</h2><p>Canvas Calendar sync · coursework kept in one widget.</p></div><span class="badge ok">CURRENT</span></div><div class="row"><div class="time">TODAY · SEP 09</div><div><div class="name">No coursework due today</div><div class="detail">Canvas Calendar sync is current.</div></div></div><div class="row"><div class="time">SEP 10 · 1:00 PM</div><div><div class="name">Garner Ch 2 Activities</div><div class="detail">HUM-312</div></div></div><div class="row"><div class="time">SEP 13 · 11:59 PM</div><div><div class="name">Target Markets</div><div class="detail">CPSC-298</div></div></div><div class="row"><div class="time">SEP 14 · 11:59 PM</div><div><div class="name">Code of Ethics · Module 1 &amp; 2 Quiz</div><div class="detail">ISP-363</div></div></div></section>
+    <section class="card" aria-labelledby="calendar"><div class="card-head"><div><h2 id="calendar">Today’s calendar</h2><p>Committed blocks with optional visibility retained.</p></div><span class="badge">6 blocks</span></div><div class="row"><div class="time">9–10 AM</div><div><div class="name">SWE CLI Introduction</div><div class="detail">Work</div></div></div><div class="row optional"><div class="time">11:30 AM–12:30 PM</div><div><div class="name">CPSC 370 Office Hours</div><div class="detail">Optional visibility only · excluded from collision logic</div></div></div><div class="row"><div class="time">11:30 AM–12 PM</div><div><div class="name">The ClawCast</div><div class="detail">Personal</div></div></div><div class="row"><div class="time">1–2:15 PM</div><div><div class="name">CPSC 370</div><div class="detail">School</div></div></div><div class="row"><div class="time">4–7 PM</div><div><div class="name">Break Through Tech</div><div class="detail">Work</div></div></div></section>
+    <section class="card" aria-labelledby="cross-board"><div class="card-head"><div><h2 id="cross-board">Cross-board priorities</h2><p>Only the orientation signal belongs here.</p></div><span class="badge warn">CAREFUL</span></div><ul class="list"><li><strong>OpenClaw detail</strong> belongs on OpenClaw Contributions.</li><li><strong>Shape-Note Atlas</strong> belongs on From the Center of the Square.</li><li><strong>Apple PIM</strong> is the source bridge for calendar and reminders; this export does not connect to it.</li><li><strong>Office Hours</strong> stay visible but greyed and do not count as conflicts.</li></ul></section>
+  </div><footer>Static public export · visual structure derived from the OpenClaw canvas widgets · values bounded to the Sep 9 reference state · no live personal data or API connection.</footer>
+</main></body></html>
