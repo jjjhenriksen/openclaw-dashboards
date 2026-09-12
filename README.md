@@ -10,8 +10,7 @@ This repository is the collection point for dashboards that are useful to share 
 | --- | --- | --- |
 | [OpenClaw Contributions](openclaw-contributions/) | Static export of the OpenClaw contribution cockpit with a privacy-bounded snapshot. | [Showcase](openclaw-contributions/index.html) |
 | [Life Radar](life-radar/) | Static export of the red-black Life Radar surface shown in the September 9, 2026 ClawCast. | [Showcase](life-radar/index.html) |
-| [Research Signal](research-signal/) | Synthetic research-intake and evidence-ledger pattern for source-aware synthesis. | [Showcase](research-signal/index.html) |
-| [Sacred Harp Atlas](sacred-harp-atlas/) | Synthetic source-coverage and review-status pattern for an edition-aware corpus interface. | [Showcase](sacred-harp-atlas/index.html) |
+| [From the Center of the Square](from-the-center-of-the-square/) | Export of the real Sacred Harp project overview: active projects, corpus coverage, and evidence trail. | [Showcase](from-the-center-of-the-square/index.html) |
 
 ## Public boundary
 

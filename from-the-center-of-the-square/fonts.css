@@ -1,0 +1,55 @@
+/*
+  Local font integration for the dashboard.
+
+  This setup prefers locally installed Optima faces from macOS Font Book.
+  No remote font service is required.
+*/
+
+@font-face {
+  font-family: "Optima Nova Web";
+  src:
+    local("Optima"),
+    local("Optima Regular"),
+    local("Optima LT Std"),
+    local("Optima-Regular"),
+    local("OptimaLTStd");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Miller Text Local";
+  src:
+    local("MillerText-Roman"),
+    local("MillerText Roman"),
+    local("Miller Text"),
+    local("Miller Text Roman");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Miller Text Local";
+  src:
+    local("Miller Text Italic"),
+    local("MillerText-Italic"),
+    local("MillerText Italic");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Optima Nova Web";
+  src:
+    local("Optima Medium"),
+    local("Optima-Medium"),
+    local("Optima Bold"),
+    local("Optima LT Std DemiBold"),
+    local("OptimaLTStd-DemiBold");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>From the Center of the Square</title>
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="./fonts.css?v=2" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell overview-shell">
+      <header class="hero overview-hero">
+        <div class="hero-copy">
+          <p class="brand-lockup"><span class="brand-sigil" aria-hidden="true">◆</span> Sacred Harp workbench <span aria-hidden="true">·</span> active projects</p>
+          <h1 id="hero-title">From the Center of the Square</h1>
+          <p id="hero-description" class="hero-description"></p>
+          <div class="hero-meta">
+            <span class="pill" id="hero-project-count"></span>
+            <span class="pill" id="hero-corpus-count"></span>
+            <span class="pill" id="hero-generated"></span>
+          </div>
+        </div>
+        <div class="square-mark" aria-label="Sacred Harp four-shape square">
+          <span class="shape shape-fa">▲</span><span class="shape shape-sol">●</span>
+          <span class="shape shape-la">▮</span><span class="shape shape-mi">◆</span>
+          <span class="square-center">fa · sol<br>la · mi</span>
+        </div>
+      </header>
+
+      <section class="card orientation-card overview-intro" aria-labelledby="orientation-heading">
+        <div class="section-heading">
+          <div><p class="eyebrow">The active square</p><h2 id="orientation-heading">Three projects, one evidence chain.</h2></div>
+          <p class="orientation-note">A working overview for the artifacts that carry the Sacred Harp research forward.</p>
+        </div>
+        <div class="orientation-grid">
+          <article class="orientation-item"><p class="orientation-label">Shared ground</p><p class="orientation-value">Edition-aware corpus data, source links, and explicit boundaries around what the evidence can say.</p></article>
+          <article class="orientation-item"><p class="orientation-label">Current shape</p><p class="orientation-value">A game, a reader, and a local model pipeline — different interfaces around related musical material.</p></article>
+          <article class="orientation-item orientation-item--action"><p class="orientation-label">Next useful move</p><p class="orientation-value">Choose the project whose proof you want to inspect, then follow its source receipt.</p></article>
+        </div>
+      </section>
+
+      <main class="overview-main">
+        <section class="project-grid" id="project-grid" aria-label="Active Sacred Harp projects"></section>
+        <section class="card corpus-card">
+          <div class="section-heading"><div><p class="eyebrow">Common foundation</p><h2>Corpus at a glance</h2></div><span class="status-stamp">source-backed</span></div>
+          <div id="corpus-metrics" class="metrics-grid"></div>
+          <div class="corpus-footnote">Generated from the local Shape-Note Atlas export. Counts describe indexed display records, not a claim that every source is equally complete.</div>
+        </section>
+        <section class="card trail-card">
+          <div class="section-heading"><div><p class="eyebrow">Evidence trail</p><h2>Where to look next</h2></div></div>
+          <div id="evidence-trail" class="evidence-trail"></div>
+        </section>
+      </main>
+    </div>
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
