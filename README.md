@@ -2,14 +2,14 @@
 
 Public dashboard artifacts and privacy-bounded showcase editions by Jacqueline Henriksen.
 
-This repository is the collection point for dashboards that are useful to share publicly. Each dashboard lives in its own directory and documents its public-data boundary.
+This repository is the collection point for dashboards that are useful to share publicly. Each dashboard lives in its own directory and documents its public-data boundary. The two OpenClaw cockpit examples are static exports derived from rendered canvas widgets, not separate approximations or live connections.
 
 ## Dashboards
 
 | Dashboard | Description | Public artifact |
 | --- | --- | --- |
-| [OpenClaw Contributions](openclaw-contributions/) | Scoped OpenClaw contribution view for public GitHub activity. | [Repository](openclaw-contributions/README.md) |
-| [Life Radar](life-radar/) | Privacy-bounded human-overview dashboard pattern with representative values only. | [Showcase](life-radar/index.html) |
+| [OpenClaw Contributions](openclaw-contributions/) | Static export of the OpenClaw contribution cockpit with a privacy-bounded snapshot. | [Showcase](openclaw-contributions/index.html) |
+| [Life Radar](life-radar/) | Static export of the red-black Life Radar surface shown in the September 9, 2026 ClawCast. | [Showcase](life-radar/index.html) |
 | [Research Signal](research-signal/) | Synthetic research-intake and evidence-ledger pattern for source-aware synthesis. | [Showcase](research-signal/index.html) |
 | [Sacred Harp Atlas](sacred-harp-atlas/) | Synthetic source-coverage and review-status pattern for an edition-aware corpus interface. | [Showcase](sacred-harp-atlas/index.html) |
 
