@@ -1,0 +1,86 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Life Radar</title><style>:root{color-scheme:light dark;
+--surface:#faf9f7;--card:#ffffff;--elevated:#ffffff;
+--text:#403c35;--text-strong:#211e1a;--muted:#6e6960;
+--border:#e8e4dc;--border-strong:#d6d0c5;
+--accent:#bd4531;--accent-fill:#bd4531;--accent-fg:#ffffff;
+--ok:#15803d;--warn:#b45309;--danger:#dc2626;--info:#2563eb;
+--radius:10px;
+--radius-full:9999px;--scrollbar-size:12px;--scrollbar-thumb-inset:3px;
+--scrollbar-thumb:color-mix(in srgb,var(--muted) 32%,transparent);
+--scrollbar-thumb-hover:color-mix(in srgb,var(--muted) 64%,transparent);
+--font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+--font-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+--accent-subtle:color-mix(in srgb,var(--accent) 10%,transparent);
+--ok-subtle:color-mix(in srgb,var(--ok) 10%,transparent);
+--warn-subtle:color-mix(in srgb,var(--warn) 12%,transparent);
+--danger-subtle:color-mix(in srgb,var(--danger) 10%,transparent);
+--info-subtle:color-mix(in srgb,var(--info) 10%,transparent)}
+@media (prefers-color-scheme:dark){:root{
+--surface:#0e1015;--card:#161920;--elevated:#191c24;
+--text:#d4d4d8;--text-strong:#f4f4f5;--muted:#8b8b94;
+--border:#1e2028;--border-strong:#2e3040;
+--accent:#ff5c5c;--accent-fill:#d13c3c;--accent-fg:#ffffff;
+--ok:#22c55e;--warn:#f59e0b;--danger:#ef4444;--info:#3b82f6}}
+*{box-sizing:border-box}@supports not selector(::-webkit-scrollbar-thumb){*{scrollbar-color:var(--scrollbar-thumb) transparent;scrollbar-width:thin}}html,body{margin:0}::-webkit-scrollbar{width:var(--scrollbar-size);height:var(--scrollbar-size);background:var(--surface)}::-webkit-scrollbar-track,::-webkit-scrollbar-corner{background:transparent}::-webkit-scrollbar-button{display:none}::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);background-clip:content-box;border:var(--scrollbar-thumb-inset) solid transparent;border-radius:var(--radius-full)}::-webkit-scrollbar-thumb:hover{background:var(--scrollbar-thumb-hover);background-clip:content-box}.openclaw-chat-host,.openclaw-chat-host body{scrollbar-width:none}.openclaw-chat-host::-webkit-scrollbar,.openclaw-chat-host body::-webkit-scrollbar{display:none}
+body{font:14px/1.5 var(--font-body);color:var(--text)}
+h1,h2,h3{margin:0 0 8px;color:var(--text-strong);font-weight:600}
+h1{font-size:18px}h2{font-size:16px}h3{font-size:14px}
+p{margin:0 0 8px}
+a{color:var(--accent)}
+button{font:13px var(--font-body);color:var(--text);background:var(--card);border:1px solid var(--border-strong);border-radius:var(--radius);padding:6px 14px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button.primary{background:var(--accent-fill);color:var(--accent-fg);border-color:transparent}
+input,select,textarea{font:13px var(--font-body);color:var(--text);background:var(--elevated);border:1px solid var(--border-strong);border-radius:var(--radius);padding:6px 10px}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+th{text-align:left;font-weight:500;color:var(--muted);font-size:12px;padding:4px 8px}
+td{padding:6px 8px;border-top:1px solid var(--border)}
+code,pre{font-family:var(--font-mono);font-size:12px;background:var(--card);border-radius:4px}
+code{padding:1px 5px}pre{padding:10px;overflow-x:auto}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+.badge{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:var(--accent-subtle);color:var(--accent)}
+.badge.ok{background:var(--ok-subtle);color:var(--ok)}
+.badge.warn{background:var(--warn-subtle);color:var(--warn)}
+.badge.danger{background:var(--danger-subtle);color:var(--danger)}
+.badge.info{background:var(--info-subtle);color:var(--info)}
+.metric{font-size:24px;font-weight:600;color:var(--text-strong)}
+.muted{color:var(--muted)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.svg-widget{display:grid;place-items:center}.svg-widget>svg{max-width:100%}.public-export-banner{margin:0;padding:7px 14px;background:#211e1a;color:#bd4531;border-bottom:1px solid #bd4531;font:700 10px var(--font-mono);letter-spacing:.08em;text-align:center}</style></head><body><div class="public-export-banner">EARLIER STATIC EXPORT · 08 SEP 2026 · BEFORE THE 11:48 PDT VERSION</div><style>
+*{box-sizing:border-box}body{margin:0;background:transparent;color:var(--text);font-family:var(--font-body);font-size:13px;line-height:1.35}.wrap{padding:18px 18px 14px}.kicker{color:#ef3340;font:700 16px/1 var(--font-mono);letter-spacing:.08em}.sub{color:var(--muted);font-size:11px;margin:7px 0 14px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.card,.section{background:color-mix(in srgb,var(--card) 92%,#16090b);border:1px solid color-mix(in srgb,#ef3340 30%,var(--border));border-radius:10px;padding:12px}.card{min-height:94px}.label{color:var(--muted);font:700 11px/1 var(--font-mono);letter-spacing:.1em;margin-bottom:9px}.value{color:var(--text-strong);font-weight:650}.hot{color:#ef3340}.section{margin-top:10px}.section h2{color:#ef3340;font:700 12px/1 var(--font-mono);letter-spacing:.1em;margin:0 0 8px}.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.list{margin:0;padding-left:17px}.list li{margin:5px 0}.meta{color:var(--muted);font-size:11px}.tag{display:inline-block;color:#ef3340;border:1px solid color-mix(in srgb,#ef3340 55%,var(--border));border-radius:999px;padding:1px 6px;font:700 10px var(--font-mono);margin-left:4px}.links a{color:var(--text-strong);text-decoration:underline;text-decoration-color:color-mix(in srgb,#ef3340 60%,transparent);text-underline-offset:2px}.footer{color:var(--muted);font:10px var(--font-mono);margin-top:11px}@media(max-width:720px){.grid,.cols{grid-template-columns:1fr}.wrap{padding:14px}}
+</style>
+<div class="wrap">
+  <div class="kicker">OPENCLAW // LIFE RADAR</div>
+  <div class="sub">Signal first · refreshed Sep 8, 2026, 9:51 PM PDT</div>
+  <div class="grid">
+    <div class="card"><div class="label">NOW</div><div class="value hot">HW2: Uninformed Search</div><div class="meta">Canvas deadline tonight · Sep 8 · 11:59 PM</div></div>
+    <div class="card"><div class="label">SIGNAL</div><div class="value">14 Workboard cards</div><div class="meta">6 todo · 3 ready · 1 blocked</div></div>
+    <div class="card"><div class="label">NEXT</div><div class="value">Wed Sep 9</div><div class="meta">SWE CLI 9:00 · CPSC 370/390 · BTT 4:00–7:00</div></div>
+  </div>
+  <div class="section"><h2>CONCRETE NEXT ACTIONS</h2><ol class="list"><li><span class="value">Verify and submit HW2</span> before tonight’s deadline.<span class="tag">DO NOW</span></li><li><span class="value">Resolve tomorrow’s 11:30 overlap:</span> CPSC 370 Office Hours and The Clawcast.<span class="tag">NEXT</span></li><li><span class="value">Advance one bounded Atlas notation correction;</span> keep review/publication status explicit.<span class="tag">HIGH</span></li></ol></div>
+  <div class="cols">
+    <div class="section"><h2>ACTIVE THREADS</h2><ul class="list links">
+      <li>OpenClaw maintenance: <a href="https://github.com/openclaw/openclaw/pull/142522" target="_blank" rel="noopener noreferrer">#142522</a>, <a href="https://github.com/openclaw/openclaw/pull/140793" target="_blank" rel="noopener noreferrer">#140793</a>, <a href="https://github.com/openclaw/openclaw/pull/139735" target="_blank" rel="noopener noreferrer">#139735</a>, <a href="https://github.com/openclaw/openclaw/pull/136687" target="_blank" rel="noopener noreferrer">#136687</a>, <a href="https://github.com/openclaw/openclaw/pull/134434" target="_blank" rel="noopener noreferrer">#134434</a></li>
+      <li>Additional open thread: <a href="https://github.com/jarbas-marco/openclaw/pull/18" target="_blank" rel="noopener noreferrer">cold compaction writer fix</a>; RFC draft <a href="https://github.com/openclaw/rfcs/pull/53" target="_blank" rel="noopener noreferrer">#53</a>.</li>
+      <li>Active Codex sessions: 18 in the last 24h; current work is the Life Radar refresh.</li>
+    </ul></div>
+    <div class="section"><h2>SACRED HARP / ATLAS</h2><ul class="list links">
+      <li><a href="https://github.com/jjjhenriksen/shapenote-atlas" target="_blank" rel="noopener noreferrer">shapenote-atlas</a> pushed Sep 8: published New Salem and Something New notation drafts plus aggregate verification checkpoint.</li>
+      <li>Workboard lanes: bounded notation correction, child assembly/publication audit, Hollow Square browser QA, and generator repair.</li>
+      <li>No open Atlas PRs; repository activity is commit-based and draft/review status remains distinct.</li>
+    </ul></div>
+  </div>
+  <div class="cols">
+    <div class="section"><h2>CALENDAR / TODAY + TOMORROW</h2><ul class="list">
+      <li><span class="value">Tue Sep 8:</span> school day completed; HW2 remains due tonight at 11:59 PM.</li>
+      <li><span class="value">Wed Sep 9:</span> SWE CLI 9:00–10:00; CPSC 370 Office Hours 11:30–12:30; The Clawcast 11:30–12:00; CPSC 370 1:00–2:15; CPSC 390 2:30–3:45; Break Through Tech 4:00–7:00.</li>
+    </ul></div>
+    <div class="section"><h2>UPCOMING DATED COMMITMENTS</h2><ul class="list">
+      <li><span class="value">Sep 13:</span> Target Markets due.</li>
+      <li><span class="value">Sep 14:</span> Code of Ethics; Module 1 &amp; 2 Quiz; two Module 2 labs due.</li>
+      <li><span class="value">Sep 16:</span> Career Fair 11:00–3:00; Fairness in Decision-Critical AI assignment due.</li>
+    </ul></div>
+  </div>
+  <div class="footer">Sources: static snapshot from the earlier rendered Life Radar canvas artifact · 08 Sep 2026 at 9:51 PM PDT. Existing Eisenhower, title, GitHub Activity, and Today’s Calendar widgets preserved.</div>
+</div></body></html>

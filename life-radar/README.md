@@ -10,6 +10,11 @@ Life Radar is a signal-first orientation surface for deadlines, capacity, calend
 - The live board remains the source for current personal planning.
 - The public HTML demonstrates the visual hierarchy and interaction model, not live personal state.
 
+## Versions
+
+- [`index.html`](index.html) — September 9, 2026 ClawCast-era export (11:48 AM PDT)
+- [`../life-radar-pre-1148/index.html`](../life-radar-pre-1148/index.html) — earlier rendered export (September 8, 2026, 9:51 PM PDT)
+
 ## Contents
 
 - [`index.html`](index.html) — self-contained public showcase
