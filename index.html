@@ -1,59 +1,7 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Public dashboard artifacts and privacy-bounded showcase editions by Jacqueline Henriksen." />
-    <title>OpenClaw Dashboards · Public Showcase</title>
-    <style>
-      :root { color-scheme: dark; --ink:#f3efe6; --muted:#aaa49b; --faint:#74716d; --bg:#101113; --surface:#191b1e; --line:#36393d; --gold:#e3c383; --accent:#ef765f; --sans:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; --mono:"SFMono-Regular",Consolas,monospace; }
-      * { box-sizing:border-box; }
-      body { margin:0; background:radial-gradient(circle at 85% 0,#332522 0,transparent 34rem),var(--bg); color:var(--ink); font-family:var(--sans); line-height:1.5; }
-      main { width:min(1180px,calc(100% - 40px)); margin:auto; padding:56px 0 70px; }
-      .eyebrow { color:var(--gold); font:700 .7rem/1.2 var(--mono); letter-spacing:.14em; text-transform:uppercase; }
-      h1 { max-width:760px; margin:14px 0; font-size:clamp(2.7rem,7vw,6.2rem); letter-spacing:-.07em; line-height:.94; }
-      .lede { max-width:650px; color:var(--muted); font-size:1.08rem; }
-      .meta { display:flex; flex-wrap:wrap; gap:10px; margin:26px 0 42px; }
-      .pill { border:1px solid var(--line); border-radius:999px; color:var(--muted); padding:6px 10px; font: .72rem var(--mono); }
-      .showcase { display:grid; grid-template-columns:1.25fr .75fr; gap:16px; align-items:stretch; }
-      .preview, .card { border:1px solid var(--line); border-radius:18px; background:var(--surface); box-shadow:0 18px 50px #0003; }
-      .preview { overflow:hidden; }
-      .preview-head { display:flex; justify-content:space-between; padding:18px 20px; border-bottom:1px solid var(--line); }
-      .preview-head strong { font-size:.95rem; }
-      .preview-head span { color:#8bc7a1; font: .7rem var(--mono); }
-      iframe { display:block; width:100%; height:560px; border:0; background:#111214; }
-      .card { padding:24px; }
-      .card h2 { margin:0 0 8px; font-size:1.15rem; }
-      .card p { color:var(--muted); font-size:.9rem; }
-      .card ul { margin:22px 0; padding-left:20px; color:var(--muted); font-size:.9rem; }
-      a { color:var(--gold); }
-      .button { display:inline-block; border:1px solid #e3c38388; border-radius:999px; padding:9px 13px; text-decoration:none; font: .75rem var(--mono); }
-      footer { margin-top:24px; color:var(--faint); font:.7rem var(--mono); }
-      @media (max-width:800px) { main { width:min(100% - 24px,620px); padding-top:32px; } .showcase { grid-template-columns:1fr; } iframe { height:620px; } }
-    </style>
-  </head>
-  <body>
-    <main>
-      <div class="eyebrow">OpenClaw Dashboards / public showcase</div>
-      <h1>Keep the important things visible.</h1>
-      <p class="lede">A collection of public dashboard artifacts and privacy-bounded showcase editions by Jacqueline Henriksen. The live boards can use private connected sources; this site contains representative values only.</p>
-      <div class="meta"><span class="pill">signal-first</span><span class="pill">privacy-bounded</span><span class="pill">static public edition</span></div>
-      <section class="showcase" aria-label="Dashboard showcase">
-        <div class="preview">
-          <div class="preview-head"><strong>Life Radar · Human Overview</strong><span>PUBLIC EDITION</span></div>
-          <iframe src="life-radar/" title="Life Radar public dashboard preview"></iframe>
-        </div>
-        <article class="card">
-          <h2>What’s here</h2>
-          <p>This collection makes the shape of the dashboards inspectable without publishing personal state.</p>
-          <ul>
-            <li><a href="life-radar/">Life Radar</a> — standalone human-overview showcase.</li>
-            <li><a href="openclaw-contributions/">OpenClaw Contributions</a> — scoped dashboard override and public-data boundary.</li>
-          </ul>
-          <a class="button" href="https://github.com/jjjhenriksen/openclaw-dashboards">View source on GitHub</a>
-        </article>
-      </section>
-      <footer>Public artifacts only · No personal calendar, health, coursework, reminders, or private workspace data is published here.</footer>
-    </main>
-  </body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Public dashboard artifacts by Jacqueline Henriksen."><title>OpenClaw Dashboards · Jacqueline Henriksen</title><link rel="stylesheet" href="showcase.css"></head>
+<body><nav class="site-nav"><a class="brand" href="./">Jacqueline Henriksen</a><a class="nav-link" href="https://jacquelinehenriksen.com/" target="_blank" rel="noreferrer">Portfolio ↗</a></nav>
+<main><p class="kicker">OpenClaw resources / public showcase</p><h1>Interfaces that keep state, evidence, and human control visible.</h1><p class="lede">A collection of privacy-bounded dashboard examples by Jacqueline Henriksen. Each page demonstrates a useful shape without publishing personal calendar, health, coursework, or workspace state.</p><div class="meta"><span class="pill">signal-first</span><span class="pill">source-aware</span><span class="pill">static examples</span></div>
+<section class="featured"><article class="card"><span class="label">Featured dashboard</span><h2>OpenClaw Contributions</h2><p>A focused public view of contribution work: open pull requests, repository scope, and explicit source boundaries.</p><div class="signal">Make the work inspectable.</div><a class="card-link" href="openclaw-contributions/">Open the dashboard →</a></article><article class="card"><span class="label">Design premise</span><h2>Readable over exhaustive</h2><p>These are orientation surfaces, not task dumps. The examples show what matters now, what is next, and where the evidence came from.</p><a class="card-link" href="https://github.com/jjjhenriksen/openclaw-dashboards">View source on GitHub ↗</a></article></section>
+<section class="grid" aria-label="Dashboard examples"><article class="card"><span class="label">Human overview</span><h3>Life Radar</h3><p>Representative priorities, commitments, capacity, and recovery margin.</p><a class="card-link" href="life-radar/">View example →</a></article><article class="card"><span class="label">Research workflow</span><h3>Research Signal</h3><p>Feed intake, source checks, and a small evidence ledger for turning reading into decisions.</p><a class="card-link" href="research-signal/">View example →</a></article><article class="card"><span class="label">Corpus interface</span><h3>Sacred Harp Atlas</h3><p>Source coverage, tune lookup, and review status kept distinct.</p><a class="card-link" href="sacred-harp-atlas/">View example →</a></article></section>
+<p class="note">Public artifacts only · Live OpenClaw dashboards may bind to private connected sources; those values are not published here.</p><footer>Jacqueline Henriksen · OpenClaw dashboards</footer></main></body></html>
