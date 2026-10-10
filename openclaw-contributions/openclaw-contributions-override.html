@@ -99,17 +99,23 @@
     }
   };
   var scopedCount = null;
+  var lastSuccess = null;
+  var githubUnavailable = false;
   var searching = false;
   var repairSignals = function () {
     var signals = byId("signals");
-    if (!signals || scopedCount === null) return;
+    if (!signals || (scopedCount === null && !githubUnavailable)) return;
     var entries = signals.querySelectorAll(".event");
     entries.forEach(function (entry) {
       var strong = entry.querySelector("strong");
       var small = entry.querySelector("small");
-      if (strong && /merged PR/i.test(strong.textContent)) {
-        strong.textContent = scopedCount + " open PR" + (scopedCount === 1 ? "" : "s") + " in scope";
-        if (small) small.textContent = "Current author search across OpenClaw-backed repos and OC forks.";
+      if (strong && (/merged PR/i.test(strong.textContent) || entry.dataset.githubSignal === "true")) {
+        entry.dataset.githubSignal = "true";
+        var title = githubUnavailable ? "Open-PR search unavailable" : scopedCount + " open PR" + (scopedCount === 1 ? "" : "s") + " in scope";
+        var detail = githubUnavailable ? "Previous counts withheld until GitHub search recovers." : "Current author search across OpenClaw-backed repos and OC forks.";
+        // Do not retrigger the document observer when the visible state is already correct.
+        if (strong.textContent !== title) strong.textContent = title;
+        if (small && small.textContent !== detail) small.textContent = detail;
       }
     });
   };
@@ -129,6 +135,8 @@
       return new Date(b.updated_at) - new Date(a.updated_at);
     });
     scopedCount = scoped.length;
+    githubUnavailable = false;
+    lastSuccess = new Date();
     setText("#m-prs", scoped.length);
     var repoCounts = {};
     scoped.forEach(function (item) { repoCounts[item.repo] = (repoCounts[item.repo] || 0) + 1; });
@@ -144,7 +152,11 @@
       return '<div class="repo"><a href="https://github.com/' + esc(repo) + '" target="_blank" rel="noopener noreferrer">' + esc(repo) + '</a><span>' + repoCounts[repo] + ' open PR' + (repoCounts[repo] === 1 ? "" : "s") + '</span></div>';
     }).join("") : '<div class="empty">No scoped repositories with open PRs.</div>';
     var quality = byId("q-github");
-    if (quality) quality.innerHTML = "<strong>GitHub: fresh</strong><span>" + scoped.length + " open PRs · live author search</span>";
+    if (quality) {
+      quality.classList.remove("warn");
+      quality.innerHTML = "<strong>GitHub: fresh</strong><span>" + scoped.length + " open PRs · live author search</span>";
+    }
+    if (byId("status")) byId("status").dataset.tone = "";
     setText("#status", "Updated " + new Date().toLocaleString() + " · " + scoped.length + " scoped open PRs · active OC threads shown below");
     repairSignals();
   };
@@ -154,7 +166,7 @@
       status.value = "active";
       status.dispatchEvent(new Event("change"));
     }
-    setText("#status", "Open PRs and active OpenClaw threads are scoped and current.");
+    setText("#status", "Checking GitHub open PRs · active-thread ledger uses its separate session source.");
   };
   var search = function () {
     if (searching) return;
@@ -167,6 +179,8 @@
         searching = false;
       })
       .catch(function (error) {
+        scopedCount = null;
+        githubUnavailable = true;
         setText("#m-prs", "—");
         setText("#m-prrepos", "—");
         var note = byId("pr-note");
@@ -175,7 +189,16 @@
         if (list) list.innerHTML = '<div class="empty warn">Open-PR search failed; total withheld rather than shown as zero.</div>';
         var repos = byId("repos");
         if (repos) repos.innerHTML = '<div class="empty warn">Repository breakdown unavailable until GitHub search recovers.</div>';
+        var quality = byId("q-github");
+        if (quality) {
+          quality.classList.add("warn");
+          quality.innerHTML = '<strong>GitHub: ' + (lastSuccess ? 'stale' : 'unavailable') + '</strong><span>' +
+            (lastSuccess ? 'Last successful search ' + esc(lastSuccess.toLocaleString()) + '. ' : '') +
+            'Current counts withheld until search recovers.</span>';
+        }
+        if (byId("status")) byId("status").dataset.tone = "warn";
         setText("#status", "Open-PR search unavailable: " + (error && error.message ? error.message : "unknown error"));
+        repairSignals();
         searching = false;
       });
   };
@@ -185,7 +208,7 @@
   // after that refresh so merged-history data cannot overwrite the open-PR view.
   var observer = new MutationObserver(function () {
     repairSignals();
-    if (!searching && scopedCount !== null && byId("pr-note") && /merged/i.test(byId("pr-note").textContent)) search();
+    if (!searching && byId("pr-note") && /merged/i.test(byId("pr-note").textContent)) search();
   });
   observer.observe(root.body, { childList: true, subtree: true, characterData: true });
   search();
