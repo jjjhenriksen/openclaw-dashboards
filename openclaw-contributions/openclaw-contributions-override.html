@@ -173,9 +173,35 @@
     searching = true;
     updateStaticCopy();
     setActiveLedger();
-    api("https://api.github.com/search/issues?q=" + encodeURIComponent("is:pr is:open author:jjjhenriksen") + "&per_page=100")
+    var items = [];
+    var readPage = function (page) {
+      return api("https://api.github.com/search/issues?q=" + encodeURIComponent("is:pr is:open author:jjjhenriksen") + "&per_page=100&page=" + page)
+        .then(function (result) {
+          var body = result.body || {};
+          if (!Array.isArray(body.items)) throw new Error("GitHub search returned an invalid page; coverage unknown.");
+          if (body.incomplete_results || body.total_count > 1000) {
+            throw new Error("GitHub search coverage is incomplete; counts withheld.");
+          }
+          items = items.concat(body.items);
+          var more = typeof body.total_count === "number" ? items.length < body.total_count : body.items.length === 100;
+          if (more) {
+            if (!body.items.length || page >= 10) throw new Error("GitHub search is truncated; counts withheld.");
+            return readPage(page + 1);
+          }
+          // Search pages can change during a refresh. Do not count a duplicate twice.
+          var seen = new Set();
+          result.body.items = items.filter(function (item) {
+            var key = item.html_url;
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+          });
+          return result;
+        });
+    };
+    readPage(1)
       .then(function (result) {
-        renderPRs(Array.isArray(result.body && result.body.items) ? result.body.items : [], result.remaining);
+        renderPRs(result.body.items, result.remaining);
         searching = false;
       })
       .catch(function (error) {

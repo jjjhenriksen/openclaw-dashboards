@@ -71,3 +71,31 @@ test('an initial failure is unavailable, not stale or fresh, and a later refresh
   assert.equal(page.title.textContent, '0 open PRs in scope');
   assert.match(page.nodes.get('q-github').innerHTML, /GitHub: fresh/);
 });
+
+
+test('scope filtering includes an allowed repository on the second search page', async () => {
+  const outside = Array.from({ length: 100 }, (_, index) => ({ ...item(index + 1), repository_url: 'https://api.github.com/repos/other/project' }));
+  const page = mount([
+    { status: 200, body: { total_count: 101, incomplete_results: false, items: outside } },
+    { status: 200, body: { total_count: 101, incomplete_results: false, items: [item(101)] } },
+  ]);
+  await settle();
+  assert.equal(page.nodes.get('m-prs').textContent, 1);
+  assert.match(page.nodes.get('prs').innerHTML, /Contribution 101/);
+  assert.match(page.nodes.get('q-github').innerHTML, /GitHub: fresh/);
+});
+
+for (const body of [
+  { total_count: 1, incomplete_results: true, items: [item(1)] },
+  { total_count: 1001, incomplete_results: false, items: [item(1)] },
+  { total_count: 2, incomplete_results: false, items: [] },
+]) {
+  test(`incomplete or capped coverage with total ${body.total_count} withholds authoritative totals`, async () => {
+    const page = mount([{ status: 200, body }]);
+    await settle();
+    assert.equal(page.nodes.get('m-prs').textContent, '—');
+    assert.equal(page.nodes.get('m-prrepos').textContent, '—');
+    assert.match(page.nodes.get('status').textContent, /incomplete|truncated/);
+    assert.equal(page.nodes.get('q-github').classList.contains('warn'), true);
+  });
+}
